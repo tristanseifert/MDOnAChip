@@ -1,0 +1,3 @@
+[submodule "MDOnAChipTests"]
+	path = MDOnAChipTests
+	url = git@github.com:tristanseifert/MDOnAChipTests.git
