@@ -1,0 +1,19 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_ARITH.all;
+use IEEE.STD_LOGIC_UNSIGNED.all;
+
+entity SRAMController is
+	port (
+		MainCLK:				in STD_LOGIC;
+	);
+end SRAMController;
+
+architecture Behavioral of SRAMController is
+
+	signal CPUClkDivider: STD_LOGIC_VECTOR(2 downto 0);
+	signal CPUClkDividerSlow: STD_LOGIC_VECTOR(22 downto 0);
+	
+begin
+
+end Behavioral;

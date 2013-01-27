@@ -1,0 +1,546 @@
+TimeQuest Timing Analyzer report for MDOnAChip
+Sun Jan 27 11:50:15 2013
+Quartus II 32-bit Version 12.1 Build 177 11/07/2012 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow Model Fmax Summary
+  6. Slow Model Setup Summary
+  7. Slow Model Hold Summary
+  8. Slow Model Recovery Summary
+  9. Slow Model Removal Summary
+ 10. Slow Model Minimum Pulse Width Summary
+ 11. Slow Model Minimum Pulse Width: 'altera_reserved_tck'
+ 12. Propagation Delay
+ 13. Minimum Propagation Delay
+ 14. Fast Model Setup Summary
+ 15. Fast Model Hold Summary
+ 16. Fast Model Recovery Summary
+ 17. Fast Model Removal Summary
+ 18. Fast Model Minimum Pulse Width Summary
+ 19. Fast Model Minimum Pulse Width: 'altera_reserved_tck'
+ 20. Propagation Delay
+ 21. Minimum Propagation Delay
+ 22. Multicorner Timing Analysis Summary
+ 23. Progagation Delay
+ 24. Minimum Progagation Delay
+ 25. Clock Transfers
+ 26. Report TCCS
+ 27. Report RSKM
+ 28. Unconstrained Paths
+ 29. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                     ;
++--------------------+--------------------------------------------------+
+; Quartus II Version ; Version 12.1 Build 177 11/07/2012 SJ Web Edition ;
+; Revision Name      ; MDOnAChip                                        ;
+; Device Family      ; Cyclone II                                       ;
+; Device Name        ; EP2C20F484C7                                     ;
+; Timing Models      ; Final                                            ;
+; Delay Model        ; Combined                                         ;
+; Rise/Fall Delays   ; Unavailable                                      ;
++--------------------+--------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2 processors           ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                    ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+; Clock Name          ; Type ; Period  ; Frequency ; Rise  ; Fall   ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets                 ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+; altera_reserved_tck ; Base ; 100.000 ; 10.0 MHz  ; 0.000 ; 50.000 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { altera_reserved_tck } ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+
+
+---------------------------
+; Slow Model Fmax Summary ;
+---------------------------
+No paths to report.
+
+
+----------------------------
+; Slow Model Setup Summary ;
+----------------------------
+No paths to report.
+
+
+---------------------------
+; Slow Model Hold Summary ;
+---------------------------
+No paths to report.
+
+
+-------------------------------
+; Slow Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Slow Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++----------------------------------------------+
+; Slow Model Minimum Pulse Width Summary       ;
++---------------------+--------+---------------+
+; Clock               ; Slack  ; End Point TNS ;
++---------------------+--------+---------------+
+; altera_reserved_tck ; 97.531 ; 0.000         ;
++---------------------+--------+---------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'altera_reserved_tck'                                                       ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+; Slack  ; Actual Width ; Required Width ; Type      ; Clock               ; Clock Edge ; Target              ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+; 97.531 ; 100.000      ; 2.469          ; Port Rate ; altera_reserved_tck ; Rise       ; altera_reserved_tck ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+
+
++----------------------------------------------------------------+
+; Propagation Delay                                              ;
++--------------+-------------+--------+--------+--------+--------+
+; Input Port   ; Output Port ; RR     ; RF     ; FR     ; FF     ;
++--------------+-------------+--------+--------+--------+--------+
+; SW_Push[0]   ; LED_Red[0]  ; 9.250  ;        ;        ; 9.250  ;
+; SW_Toggle[0] ; LED_Red[0]  ; 5.525  ; 5.525  ; 5.525  ; 5.525  ;
+; SW_Toggle[1] ; LED_Red[0]  ; 6.308  ; 6.308  ; 6.308  ; 6.308  ;
+; SW_Toggle[2] ; HEX_0[0]    ; 8.673  ; 8.673  ; 8.673  ; 8.673  ;
+; SW_Toggle[2] ; HEX_0[1]    ; 8.713  ; 8.713  ; 8.713  ; 8.713  ;
+; SW_Toggle[2] ; HEX_0[2]    ; 8.720  ; 8.720  ; 8.720  ; 8.720  ;
+; SW_Toggle[2] ; HEX_0[3]    ; 8.731  ; 8.731  ; 8.731  ; 8.731  ;
+; SW_Toggle[2] ; HEX_0[4]    ; 8.376  ; 8.376  ; 8.376  ; 8.376  ;
+; SW_Toggle[2] ; HEX_0[5]    ; 8.742  ; 8.742  ; 8.742  ; 8.742  ;
+; SW_Toggle[2] ; HEX_0[6]    ; 8.735  ; 8.735  ; 8.735  ; 8.735  ;
+; SW_Toggle[2] ; HEX_1[0]    ; 9.056  ; 9.056  ; 9.056  ; 9.056  ;
+; SW_Toggle[2] ; HEX_1[1]    ; 9.021  ; 9.021  ; 9.021  ; 9.021  ;
+; SW_Toggle[2] ; HEX_1[2]    ; 8.984  ; 8.984  ; 8.984  ; 8.984  ;
+; SW_Toggle[2] ; HEX_1[3]    ; 9.029  ; 9.029  ; 9.029  ; 9.029  ;
+; SW_Toggle[2] ; HEX_1[4]    ; 9.048  ; 9.048  ; 9.048  ; 9.048  ;
+; SW_Toggle[2] ; HEX_1[5]    ; 9.077  ; 9.077  ; 9.077  ; 9.077  ;
+; SW_Toggle[2] ; HEX_1[6]    ; 9.033  ; 9.033  ; 9.033  ; 9.033  ;
+; SW_Toggle[2] ; HEX_2[0]    ; 8.824  ; 8.824  ; 8.824  ; 8.824  ;
+; SW_Toggle[2] ; HEX_2[1]    ; 8.838  ; 8.838  ; 8.838  ; 8.838  ;
+; SW_Toggle[2] ; HEX_2[2]    ; 9.228  ; 9.228  ; 9.228  ; 9.228  ;
+; SW_Toggle[2] ; HEX_2[3]    ; 8.882  ; 8.882  ; 8.882  ; 8.882  ;
+; SW_Toggle[2] ; HEX_2[4]    ; 9.198  ; 9.198  ; 9.198  ; 9.198  ;
+; SW_Toggle[2] ; HEX_2[5]    ; 9.223  ; 9.223  ; 9.223  ; 9.223  ;
+; SW_Toggle[2] ; HEX_2[6]    ; 9.553  ; 9.553  ; 9.553  ; 9.553  ;
+; SW_Toggle[2] ; HEX_3[0]    ; 9.945  ; 9.945  ; 9.945  ; 9.945  ;
+; SW_Toggle[2] ; HEX_3[1]    ; 10.201 ; 10.201 ; 10.201 ; 10.201 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 10.177 ; 10.177 ; 10.177 ; 10.177 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 9.545  ; 9.545  ; 9.545  ; 9.545  ;
+; SW_Toggle[2] ; HEX_3[4]    ; 10.073 ; 10.073 ; 10.073 ; 10.073 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 9.977  ; 9.977  ; 9.977  ; 9.977  ;
+; SW_Toggle[2] ; HEX_3[6]    ; 9.892  ; 9.892  ; 9.892  ; 9.892  ;
++--------------+-------------+--------+--------+--------+--------+
+
+
++------------------------------------------------------------+
+; Minimum Propagation Delay                                  ;
++--------------+-------------+-------+-------+-------+-------+
+; Input Port   ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++--------------+-------------+-------+-------+-------+-------+
+; SW_Push[0]   ; LED_Red[0]  ; 9.250 ;       ;       ; 9.250 ;
+; SW_Toggle[0] ; LED_Red[0]  ; 5.525 ; 5.525 ; 5.525 ; 5.525 ;
+; SW_Toggle[1] ; LED_Red[0]  ; 6.308 ; 6.308 ; 6.308 ; 6.308 ;
+; SW_Toggle[2] ; HEX_0[0]    ; 8.262 ; 8.262 ; 8.262 ; 8.262 ;
+; SW_Toggle[2] ; HEX_0[1]    ; 8.295 ; 8.295 ; 8.295 ; 8.295 ;
+; SW_Toggle[2] ; HEX_0[2]    ; 8.304 ; 8.304 ; 8.304 ; 8.304 ;
+; SW_Toggle[2] ; HEX_0[3]    ; 8.321 ; 8.321 ; 8.321 ; 8.321 ;
+; SW_Toggle[2] ; HEX_0[4]    ; 7.958 ; 7.958 ; 7.958 ; 7.958 ;
+; SW_Toggle[2] ; HEX_0[5]    ; 8.327 ; 8.327 ; 8.327 ; 8.327 ;
+; SW_Toggle[2] ; HEX_0[6]    ; 8.316 ; 8.316 ; 8.316 ; 8.316 ;
+; SW_Toggle[2] ; HEX_1[0]    ; 8.823 ; 8.823 ; 8.823 ; 8.823 ;
+; SW_Toggle[2] ; HEX_1[1]    ; 8.780 ; 8.780 ; 8.780 ; 8.780 ;
+; SW_Toggle[2] ; HEX_1[2]    ; 8.774 ; 8.774 ; 8.774 ; 8.774 ;
+; SW_Toggle[2] ; HEX_1[3]    ; 8.787 ; 8.787 ; 8.787 ; 8.787 ;
+; SW_Toggle[2] ; HEX_1[4]    ; 8.806 ; 8.806 ; 8.806 ; 8.806 ;
+; SW_Toggle[2] ; HEX_1[5]    ; 8.838 ; 8.838 ; 8.838 ; 8.838 ;
+; SW_Toggle[2] ; HEX_1[6]    ; 8.797 ; 8.797 ; 8.797 ; 8.797 ;
+; SW_Toggle[2] ; HEX_2[0]    ; 8.471 ; 8.471 ; 8.471 ; 8.471 ;
+; SW_Toggle[2] ; HEX_2[1]    ; 8.454 ; 8.454 ; 8.454 ; 8.454 ;
+; SW_Toggle[2] ; HEX_2[2]    ; 8.846 ; 8.846 ; 8.846 ; 8.846 ;
+; SW_Toggle[2] ; HEX_2[3]    ; 8.505 ; 8.505 ; 8.505 ; 8.505 ;
+; SW_Toggle[2] ; HEX_2[4]    ; 8.821 ; 8.821 ; 8.821 ; 8.821 ;
+; SW_Toggle[2] ; HEX_2[5]    ; 8.844 ; 8.844 ; 8.844 ; 8.844 ;
+; SW_Toggle[2] ; HEX_2[6]    ; 9.174 ; 9.174 ; 9.174 ; 9.174 ;
+; SW_Toggle[2] ; HEX_3[0]    ; 9.047 ; 9.047 ; 9.047 ; 9.047 ;
+; SW_Toggle[2] ; HEX_3[1]    ; 9.272 ; 9.272 ; 9.272 ; 9.272 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 9.248 ; 9.248 ; 9.248 ; 9.248 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 8.606 ; 8.606 ; 8.606 ; 8.606 ;
+; SW_Toggle[2] ; HEX_3[4]    ; 9.178 ; 9.178 ; 9.178 ; 9.178 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 9.045 ; 9.045 ; 9.045 ; 9.045 ;
+; SW_Toggle[2] ; HEX_3[6]    ; 8.959 ; 8.959 ; 8.959 ; 8.959 ;
++--------------+-------------+-------+-------+-------+-------+
+
+
+----------------------------
+; Fast Model Setup Summary ;
+----------------------------
+No paths to report.
+
+
+---------------------------
+; Fast Model Hold Summary ;
+---------------------------
+No paths to report.
+
+
+-------------------------------
+; Fast Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Fast Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++----------------------------------------------+
+; Fast Model Minimum Pulse Width Summary       ;
++---------------------+--------+---------------+
+; Clock               ; Slack  ; End Point TNS ;
++---------------------+--------+---------------+
+; altera_reserved_tck ; 97.778 ; 0.000         ;
++---------------------+--------+---------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'altera_reserved_tck'                                                       ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+; Slack  ; Actual Width ; Required Width ; Type      ; Clock               ; Clock Edge ; Target              ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+; 97.778 ; 100.000      ; 2.222          ; Port Rate ; altera_reserved_tck ; Rise       ; altera_reserved_tck ;
++--------+--------------+----------------+-----------+---------------------+------------+---------------------+
+
+
++------------------------------------------------------------+
+; Propagation Delay                                          ;
++--------------+-------------+-------+-------+-------+-------+
+; Input Port   ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++--------------+-------------+-------+-------+-------+-------+
+; SW_Push[0]   ; LED_Red[0]  ; 4.857 ;       ;       ; 4.857 ;
+; SW_Toggle[0] ; LED_Red[0]  ; 2.609 ; 2.609 ; 2.609 ; 2.609 ;
+; SW_Toggle[1] ; LED_Red[0]  ; 2.897 ; 2.897 ; 2.897 ; 2.897 ;
+; SW_Toggle[2] ; HEX_0[0]    ; 3.850 ; 3.850 ; 3.850 ; 3.850 ;
+; SW_Toggle[2] ; HEX_0[1]    ; 3.881 ; 3.881 ; 3.881 ; 3.881 ;
+; SW_Toggle[2] ; HEX_0[2]    ; 3.885 ; 3.885 ; 3.885 ; 3.885 ;
+; SW_Toggle[2] ; HEX_0[3]    ; 3.890 ; 3.890 ; 3.890 ; 3.890 ;
+; SW_Toggle[2] ; HEX_0[4]    ; 3.798 ; 3.798 ; 3.798 ; 3.798 ;
+; SW_Toggle[2] ; HEX_0[5]    ; 3.906 ; 3.906 ; 3.906 ; 3.906 ;
+; SW_Toggle[2] ; HEX_0[6]    ; 3.901 ; 3.901 ; 3.901 ; 3.901 ;
+; SW_Toggle[2] ; HEX_1[0]    ; 4.018 ; 4.018 ; 4.018 ; 4.018 ;
+; SW_Toggle[2] ; HEX_1[1]    ; 3.988 ; 3.988 ; 3.988 ; 3.988 ;
+; SW_Toggle[2] ; HEX_1[2]    ; 3.982 ; 3.982 ; 3.982 ; 3.982 ;
+; SW_Toggle[2] ; HEX_1[3]    ; 3.994 ; 3.994 ; 3.994 ; 3.994 ;
+; SW_Toggle[2] ; HEX_1[4]    ; 4.008 ; 4.008 ; 4.008 ; 4.008 ;
+; SW_Toggle[2] ; HEX_1[5]    ; 4.046 ; 4.046 ; 4.046 ; 4.046 ;
+; SW_Toggle[2] ; HEX_1[6]    ; 4.010 ; 4.010 ; 4.010 ; 4.010 ;
+; SW_Toggle[2] ; HEX_2[0]    ; 3.961 ; 3.961 ; 3.961 ; 3.961 ;
+; SW_Toggle[2] ; HEX_2[1]    ; 3.946 ; 3.946 ; 3.946 ; 3.946 ;
+; SW_Toggle[2] ; HEX_2[2]    ; 4.093 ; 4.093 ; 4.093 ; 4.093 ;
+; SW_Toggle[2] ; HEX_2[3]    ; 3.988 ; 3.988 ; 3.988 ; 3.988 ;
+; SW_Toggle[2] ; HEX_2[4]    ; 4.102 ; 4.102 ; 4.102 ; 4.102 ;
+; SW_Toggle[2] ; HEX_2[5]    ; 4.082 ; 4.082 ; 4.082 ; 4.082 ;
+; SW_Toggle[2] ; HEX_2[6]    ; 4.205 ; 4.205 ; 4.205 ; 4.205 ;
+; SW_Toggle[2] ; HEX_3[0]    ; 4.374 ; 4.374 ; 4.374 ; 4.374 ;
+; SW_Toggle[2] ; HEX_3[1]    ; 4.537 ; 4.537 ; 4.537 ; 4.537 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 4.525 ; 4.525 ; 4.525 ; 4.525 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 4.237 ; 4.237 ; 4.237 ; 4.237 ;
+; SW_Toggle[2] ; HEX_3[4]    ; 4.536 ; 4.536 ; 4.536 ; 4.536 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 4.375 ; 4.375 ; 4.375 ; 4.375 ;
+; SW_Toggle[2] ; HEX_3[6]    ; 4.373 ; 4.373 ; 4.373 ; 4.373 ;
++--------------+-------------+-------+-------+-------+-------+
+
+
++------------------------------------------------------------+
+; Minimum Propagation Delay                                  ;
++--------------+-------------+-------+-------+-------+-------+
+; Input Port   ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++--------------+-------------+-------+-------+-------+-------+
+; SW_Push[0]   ; LED_Red[0]  ; 4.857 ;       ;       ; 4.857 ;
+; SW_Toggle[0] ; LED_Red[0]  ; 2.609 ; 2.609 ; 2.609 ; 2.609 ;
+; SW_Toggle[1] ; LED_Red[0]  ; 2.897 ; 2.897 ; 2.897 ; 2.897 ;
+; SW_Toggle[2] ; HEX_0[0]    ; 3.700 ; 3.700 ; 3.700 ; 3.700 ;
+; SW_Toggle[2] ; HEX_0[1]    ; 3.734 ; 3.734 ; 3.734 ; 3.734 ;
+; SW_Toggle[2] ; HEX_0[2]    ; 3.739 ; 3.739 ; 3.739 ; 3.739 ;
+; SW_Toggle[2] ; HEX_0[3]    ; 3.748 ; 3.748 ; 3.748 ; 3.748 ;
+; SW_Toggle[2] ; HEX_0[4]    ; 3.644 ; 3.644 ; 3.644 ; 3.644 ;
+; SW_Toggle[2] ; HEX_0[5]    ; 3.759 ; 3.759 ; 3.759 ; 3.759 ;
+; SW_Toggle[2] ; HEX_0[6]    ; 3.753 ; 3.753 ; 3.753 ; 3.753 ;
+; SW_Toggle[2] ; HEX_1[0]    ; 3.946 ; 3.946 ; 3.946 ; 3.946 ;
+; SW_Toggle[2] ; HEX_1[1]    ; 3.907 ; 3.907 ; 3.907 ; 3.907 ;
+; SW_Toggle[2] ; HEX_1[2]    ; 3.905 ; 3.905 ; 3.905 ; 3.905 ;
+; SW_Toggle[2] ; HEX_1[3]    ; 3.914 ; 3.914 ; 3.914 ; 3.914 ;
+; SW_Toggle[2] ; HEX_1[4]    ; 3.928 ; 3.928 ; 3.928 ; 3.928 ;
+; SW_Toggle[2] ; HEX_1[5]    ; 3.959 ; 3.959 ; 3.959 ; 3.959 ;
+; SW_Toggle[2] ; HEX_1[6]    ; 3.935 ; 3.935 ; 3.935 ; 3.935 ;
+; SW_Toggle[2] ; HEX_2[0]    ; 3.827 ; 3.827 ; 3.827 ; 3.827 ;
+; SW_Toggle[2] ; HEX_2[1]    ; 3.819 ; 3.819 ; 3.819 ; 3.819 ;
+; SW_Toggle[2] ; HEX_2[2]    ; 3.965 ; 3.965 ; 3.965 ; 3.965 ;
+; SW_Toggle[2] ; HEX_2[3]    ; 3.865 ; 3.865 ; 3.865 ; 3.865 ;
+; SW_Toggle[2] ; HEX_2[4]    ; 3.977 ; 3.977 ; 3.977 ; 3.977 ;
+; SW_Toggle[2] ; HEX_2[5]    ; 3.953 ; 3.953 ; 3.953 ; 3.953 ;
+; SW_Toggle[2] ; HEX_2[6]    ; 4.084 ; 4.084 ; 4.084 ; 4.084 ;
+; SW_Toggle[2] ; HEX_3[0]    ; 4.042 ; 4.042 ; 4.042 ; 4.042 ;
+; SW_Toggle[2] ; HEX_3[1]    ; 4.204 ; 4.204 ; 4.204 ; 4.204 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 4.192 ; 4.192 ; 4.192 ; 4.192 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 3.899 ; 3.899 ; 3.899 ; 3.899 ;
+; SW_Toggle[2] ; HEX_3[4]    ; 4.203 ; 4.203 ; 4.203 ; 4.203 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 4.039 ; 4.039 ; 4.039 ; 4.039 ;
+; SW_Toggle[2] ; HEX_3[6]    ; 4.039 ; 4.039 ; 4.039 ; 4.039 ;
++--------------+-------------+-------+-------+-------+-------+
+
+
++--------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                            ;
++----------------------+-------+------+----------+---------+---------------------+
+; Clock                ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
++----------------------+-------+------+----------+---------+---------------------+
+; Worst-case Slack     ; N/A   ; N/A  ; N/A      ; N/A     ; 97.531              ;
+;  altera_reserved_tck ; N/A   ; N/A  ; N/A      ; N/A     ; 97.531              ;
+; Design-wide TNS      ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; 0.0                 ;
+;  altera_reserved_tck ; N/A   ; N/A  ; N/A      ; N/A     ; 0.000               ;
++----------------------+-------+------+----------+---------+---------------------+
+
+
++----------------------------------------------------------------+
+; Progagation Delay                                              ;
++--------------+-------------+--------+--------+--------+--------+
+; Input Port   ; Output Port ; RR     ; RF     ; FR     ; FF     ;
++--------------+-------------+--------+--------+--------+--------+
+; SW_Push[0]   ; LED_Red[0]  ; 9.250  ;        ;        ; 9.250  ;
+; SW_Toggle[0] ; LED_Red[0]  ; 5.525  ; 5.525  ; 5.525  ; 5.525  ;
+; SW_Toggle[1] ; LED_Red[0]  ; 6.308  ; 6.308  ; 6.308  ; 6.308  ;
+; SW_Toggle[2] ; HEX_0[0]    ; 8.673  ; 8.673  ; 8.673  ; 8.673  ;
+; SW_Toggle[2] ; HEX_0[1]    ; 8.713  ; 8.713  ; 8.713  ; 8.713  ;
+; SW_Toggle[2] ; HEX_0[2]    ; 8.720  ; 8.720  ; 8.720  ; 8.720  ;
+; SW_Toggle[2] ; HEX_0[3]    ; 8.731  ; 8.731  ; 8.731  ; 8.731  ;
+; SW_Toggle[2] ; HEX_0[4]    ; 8.376  ; 8.376  ; 8.376  ; 8.376  ;
+; SW_Toggle[2] ; HEX_0[5]    ; 8.742  ; 8.742  ; 8.742  ; 8.742  ;
+; SW_Toggle[2] ; HEX_0[6]    ; 8.735  ; 8.735  ; 8.735  ; 8.735  ;
+; SW_Toggle[2] ; HEX_1[0]    ; 9.056  ; 9.056  ; 9.056  ; 9.056  ;
+; SW_Toggle[2] ; HEX_1[1]    ; 9.021  ; 9.021  ; 9.021  ; 9.021  ;
+; SW_Toggle[2] ; HEX_1[2]    ; 8.984  ; 8.984  ; 8.984  ; 8.984  ;
+; SW_Toggle[2] ; HEX_1[3]    ; 9.029  ; 9.029  ; 9.029  ; 9.029  ;
+; SW_Toggle[2] ; HEX_1[4]    ; 9.048  ; 9.048  ; 9.048  ; 9.048  ;
+; SW_Toggle[2] ; HEX_1[5]    ; 9.077  ; 9.077  ; 9.077  ; 9.077  ;
+; SW_Toggle[2] ; HEX_1[6]    ; 9.033  ; 9.033  ; 9.033  ; 9.033  ;
+; SW_Toggle[2] ; HEX_2[0]    ; 8.824  ; 8.824  ; 8.824  ; 8.824  ;
+; SW_Toggle[2] ; HEX_2[1]    ; 8.838  ; 8.838  ; 8.838  ; 8.838  ;
+; SW_Toggle[2] ; HEX_2[2]    ; 9.228  ; 9.228  ; 9.228  ; 9.228  ;
+; SW_Toggle[2] ; HEX_2[3]    ; 8.882  ; 8.882  ; 8.882  ; 8.882  ;
+; SW_Toggle[2] ; HEX_2[4]    ; 9.198  ; 9.198  ; 9.198  ; 9.198  ;
+; SW_Toggle[2] ; HEX_2[5]    ; 9.223  ; 9.223  ; 9.223  ; 9.223  ;
+; SW_Toggle[2] ; HEX_2[6]    ; 9.553  ; 9.553  ; 9.553  ; 9.553  ;
+; SW_Toggle[2] ; HEX_3[0]    ; 9.945  ; 9.945  ; 9.945  ; 9.945  ;
+; SW_Toggle[2] ; HEX_3[1]    ; 10.201 ; 10.201 ; 10.201 ; 10.201 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 10.177 ; 10.177 ; 10.177 ; 10.177 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 9.545  ; 9.545  ; 9.545  ; 9.545  ;
+; SW_Toggle[2] ; HEX_3[4]    ; 10.073 ; 10.073 ; 10.073 ; 10.073 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 9.977  ; 9.977  ; 9.977  ; 9.977  ;
+; SW_Toggle[2] ; HEX_3[6]    ; 9.892  ; 9.892  ; 9.892  ; 9.892  ;
++--------------+-------------+--------+--------+--------+--------+
+
+
++------------------------------------------------------------+
+; Minimum Progagation Delay                                  ;
++--------------+-------------+-------+-------+-------+-------+
+; Input Port   ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++--------------+-------------+-------+-------+-------+-------+
+; SW_Push[0]   ; LED_Red[0]  ; 4.857 ;       ;       ; 4.857 ;
+; SW_Toggle[0] ; LED_Red[0]  ; 2.609 ; 2.609 ; 2.609 ; 2.609 ;
+; SW_Toggle[1] ; LED_Red[0]  ; 2.897 ; 2.897 ; 2.897 ; 2.897 ;
+; SW_Toggle[2] ; HEX_0[0]    ; 3.700 ; 3.700 ; 3.700 ; 3.700 ;
+; SW_Toggle[2] ; HEX_0[1]    ; 3.734 ; 3.734 ; 3.734 ; 3.734 ;
+; SW_Toggle[2] ; HEX_0[2]    ; 3.739 ; 3.739 ; 3.739 ; 3.739 ;
+; SW_Toggle[2] ; HEX_0[3]    ; 3.748 ; 3.748 ; 3.748 ; 3.748 ;
+; SW_Toggle[2] ; HEX_0[4]    ; 3.644 ; 3.644 ; 3.644 ; 3.644 ;
+; SW_Toggle[2] ; HEX_0[5]    ; 3.759 ; 3.759 ; 3.759 ; 3.759 ;
+; SW_Toggle[2] ; HEX_0[6]    ; 3.753 ; 3.753 ; 3.753 ; 3.753 ;
+; SW_Toggle[2] ; HEX_1[0]    ; 3.946 ; 3.946 ; 3.946 ; 3.946 ;
+; SW_Toggle[2] ; HEX_1[1]    ; 3.907 ; 3.907 ; 3.907 ; 3.907 ;
+; SW_Toggle[2] ; HEX_1[2]    ; 3.905 ; 3.905 ; 3.905 ; 3.905 ;
+; SW_Toggle[2] ; HEX_1[3]    ; 3.914 ; 3.914 ; 3.914 ; 3.914 ;
+; SW_Toggle[2] ; HEX_1[4]    ; 3.928 ; 3.928 ; 3.928 ; 3.928 ;
+; SW_Toggle[2] ; HEX_1[5]    ; 3.959 ; 3.959 ; 3.959 ; 3.959 ;
+; SW_Toggle[2] ; HEX_1[6]    ; 3.935 ; 3.935 ; 3.935 ; 3.935 ;
+; SW_Toggle[2] ; HEX_2[0]    ; 3.827 ; 3.827 ; 3.827 ; 3.827 ;
+; SW_Toggle[2] ; HEX_2[1]    ; 3.819 ; 3.819 ; 3.819 ; 3.819 ;
+; SW_Toggle[2] ; HEX_2[2]    ; 3.965 ; 3.965 ; 3.965 ; 3.965 ;
+; SW_Toggle[2] ; HEX_2[3]    ; 3.865 ; 3.865 ; 3.865 ; 3.865 ;
+; SW_Toggle[2] ; HEX_2[4]    ; 3.977 ; 3.977 ; 3.977 ; 3.977 ;
+; SW_Toggle[2] ; HEX_2[5]    ; 3.953 ; 3.953 ; 3.953 ; 3.953 ;
+; SW_Toggle[2] ; HEX_2[6]    ; 4.084 ; 4.084 ; 4.084 ; 4.084 ;
+; SW_Toggle[2] ; HEX_3[0]    ; 4.042 ; 4.042 ; 4.042 ; 4.042 ;
+; SW_Toggle[2] ; HEX_3[1]    ; 4.204 ; 4.204 ; 4.204 ; 4.204 ;
+; SW_Toggle[2] ; HEX_3[2]    ; 4.192 ; 4.192 ; 4.192 ; 4.192 ;
+; SW_Toggle[2] ; HEX_3[3]    ; 3.899 ; 3.899 ; 3.899 ; 3.899 ;
+; SW_Toggle[2] ; HEX_3[4]    ; 4.203 ; 4.203 ; 4.203 ; 4.203 ;
+; SW_Toggle[2] ; HEX_3[5]    ; 4.039 ; 4.039 ; 4.039 ; 4.039 ;
+; SW_Toggle[2] ; HEX_3[6]    ; 4.039 ; 4.039 ; 4.039 ; 4.039 ;
++--------------+-------------+-------+-------+-------+-------+
+
+
+-------------------
+; Clock Transfers ;
+-------------------
+Nothing to report.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths                            ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 5     ; 5    ;
+; Unconstrained Input Ports       ; 5     ; 5    ;
+; Unconstrained Input Port Paths  ; 391   ; 391  ;
+; Unconstrained Output Ports      ; 81    ; 81   ;
+; Unconstrained Output Port Paths ; 488   ; 488  ;
++---------------------------------+-------+------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 32-bit TimeQuest Timing Analyzer
+    Info: Version 12.1 Build 177 11/07/2012 SJ Web Edition
+    Info: Processing started: Sun Jan 27 11:50:11 2013
+Info: Command: quartus_sta MDOnAChip -c MDOnAChip
+Info: qsta_default_script.tcl version: #1
+Info (20032): Parallel compilation is enabled and will use up to 2 processors
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Warning (335093): TimeQuest Timing Analyzer is analyzing 34 combinational loops as latches.
+Info (332164): Evaluating HDL-embedded SDC commands
+    Info (332165): Entity dcfifo_bei1
+        Info (332166): set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_uu8:dffpipe15|dffe16a* 
+        Info (332166): set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_tu8:dffpipe12|dffe13a* 
+    Info (332165): Entity sld_jtag_hub
+        Info (332166): create_clock -period 10MHz -name altera_reserved_tck [get_ports {altera_reserved_tck}]
+        Info (332166): set_clock_groups -asynchronous -group {altera_reserved_tck}
+Warning (332174): Ignored filter at qsta_default_script.tcl(1028): *rdptr_g* could not be matched with a clock or keeper or register or port or pin or cell or partition
+Warning (332174): Ignored filter at qsta_default_script.tcl(1028): *ws_dgrp|dffpipe_uu8:dffpipe15|dffe16a* could not be matched with a clock or keeper or register or port or pin or cell or partition
+Warning (332049): Ignored set_false_path at qsta_default_script.tcl(1028): Argument <from> is not an object ID
+    Info (332050): read_sdc
+Warning (332049): Ignored set_false_path at qsta_default_script.tcl(1028): Argument <to> is not an object ID
+Warning (332174): Ignored filter at qsta_default_script.tcl(1028): *delayed_wrptr_g* could not be matched with a clock or keeper or register or port or pin or cell or partition
+Warning (332174): Ignored filter at qsta_default_script.tcl(1028): *rs_dgwp|dffpipe_tu8:dffpipe12|dffe13a* could not be matched with a clock or keeper or register or port or pin or cell or partition
+Warning (332049): Ignored set_false_path at qsta_default_script.tcl(1028): Argument <from> is not an object ID
+    Info (332050): read_sdc
+Warning (332049): Ignored set_false_path at qsta_default_script.tcl(1028): Argument <to> is not an object ID
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'MDOnAChip.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Warning (332060): Node: SW_Push[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK_24 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: SRAMController:SRAMMultiplexer|OS_State[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK_50 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: TG68:CPU|TG68_fast:TG68_fast_inst|state[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332056): PLL cross checking found inconsistent PLL clock settings:
+    Warning (332056): Node: MegaDriveClkPLL|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 41.666
+    Warning (332056): Node: MainPLL|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
+    Warning (332056): Node: MainPLL|altpll_component|pll|clk[1] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow Model
+Info (332140): No fmax paths to report
+Info (332140): No Setup paths to report
+Info (332140): No Hold paths to report
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 97.531
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    97.531         0.000 altera_reserved_tck 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info: Analyzing Fast Model
+Warning (332060): Node: SW_Push[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK_24 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: SRAMController:SRAMMultiplexer|OS_State[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK_50 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: TG68:CPU|TG68_fast:TG68_fast_inst|state[0] was determined to be a clock but was found without an associated clock assignment.
+Warning (332056): PLL cross checking found inconsistent PLL clock settings:
+    Warning (332056): Node: MegaDriveClkPLL|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 41.666
+    Warning (332056): Node: MainPLL|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
+    Warning (332056): Node: MainPLL|altpll_component|pll|clk[1] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
+Info (332140): No Setup paths to report
+Info (332140): No Hold paths to report
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 97.778
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    97.778         0.000 altera_reserved_tck 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 28 warnings
+    Info: Peak virtual memory: 329 megabytes
+    Info: Processing ended: Sun Jan 27 11:50:15 2013
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:04
+
+

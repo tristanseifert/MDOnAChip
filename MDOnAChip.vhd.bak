@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_ARITH.all;
+use IEEE.STD_LOGIC_UNSIGNED.all;
+
+entity VGAOutput is
+	port (
+		ColourOut_R:		out STD_LOGIC_VECTOR(3 downto 0);
+		ColourOut_G:		out STD_LOGIC_VECTOR(3 downto 0);
+		ColourOut_B:		out STD_LOGIC_VECTOR(3 downto 0);
+		
+		ColourOut_HSync: 	out STD_LOGIC;
+		ColourOut_VSync: 	out STD_LOGIC;
+		
+		-- clocks
+		CLK_50:				in STD_LOGIC;
+		CLK_27:				in STD_LOGIC;
+		CLK_24:				in STD_LOGIC
+	);
+end VGAOutput;
+
+architecture Behavioral of VGAOutput is
+	component VGAOutput
+		port (
+			ColourOut_R:		out STD_LOGIC_VECTOR(3 downto 0);
+			ColourOut_G:		out STD_LOGIC_VECTOR(3 downto 0);
+			ColourOut_B:		out STD_LOGIC_VECTOR(3 downto 0);
+		
+			ColourOut_HSync: 	out STD_LOGIC;
+			ColourOut_VSync: 	out STD_LOGIC;
+		
+			-- clocks
+			VDP_PClk:			in STD_LOGIC -- Pixel clock (25 MHz)
+		);
+	end component VGAOutput;
+
+begin
+
+end Behavioral;

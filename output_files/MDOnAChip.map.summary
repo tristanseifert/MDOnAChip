@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sun Jan 27 11:49:28 2013
+Quartus II 32-bit Version : 12.1 Build 177 11/07/2012 SJ Web Edition
+Revision Name : MDOnAChip
+Top-level Entity Name : MDOnAChip
+Family : Cyclone II
+Total logic elements : 3,406
+    Total combinational functions : 3,311
+    Dedicated logic registers : 694
+Total registers : 694
+Total pins : 166
+Total virtual pins : 0
+Total memory bits : 9,280
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 2
