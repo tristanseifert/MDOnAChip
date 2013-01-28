@@ -219,7 +219,6 @@ set_location_assignment PIN_D4 -to HEX_3[6]
 set_global_assignment -name VHDL_FILE tg68/trunk/VHDL/TG68_fast.vhd
 set_global_assignment -name VHDL_FILE tg68/trunk/VHDL/TG68.vhd
 set_global_assignment -name VHDL_FILE MDOnAChip.vhd
-set_global_assignment -name VHDL_FILE VGAOutput.vhdl
 set_global_assignment -name QIP_FILE MainSystemPLL.qip
 set_global_assignment -name QIP_FILE VDP_CRAM.qip
 set_global_assignment -name QIP_FILE VDP_VSCRAM.qip
@@ -232,4 +231,5 @@ set_global_assignment -name VHDL_FILE MDClkGen.vhd
 set_global_assignment -name QIP_FILE MD_TestPrgROM.qip
 set_global_assignment -name VHDL_FILE SevenSegDriver.vhd
 set_global_assignment -name VHDL_FILE SRAMController.vhd
+set_global_assignment -name QIP_FILE VDP_ScanlineBuffer.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

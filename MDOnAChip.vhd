@@ -95,6 +95,8 @@ architecture Behavioral of MDOnAChip is
 	signal CPU_RW: 			STD_LOGIC;
 	signal CPU_drive_data: 	STD_LOGIC;				--enable for data_out driver
 	
+	signal ROM_Data:			STD_LOGIC_VECTOR(15 downto 0);
+	
 	signal MD_MasterClk: 	STD_LOGIC;
 	signal CPU_CLK_Real:		STD_LOGIC;
 	signal CPU_CLK_Slow:		STD_LOGIC;
@@ -113,6 +115,10 @@ architecture Behavioral of MDOnAChip is
 	
 	signal CPU_VDP_DTACK: 	STD_LOGIC;
 	signal CPU_RAM_DTACK: 	STD_LOGIC;
+	
+	signal VDP_ColourBus:	STD_LOGIC_VECTOR(11 downto 0);
+	signal Vid_HSync:			STD_LOGIC;
+	signal Vid_VSync:			STD_LOGIC;
 
 	component MainSystemPLL
 		port (
@@ -150,6 +156,8 @@ architecture Behavioral of MDOnAChip is
 			ColourOut_HSync: 	out STD_LOGIC;
 			ColourOut_VSync: 	out STD_LOGIC;
 		
+			PixelInput:			in STD_LOGIC_VECTOR(11 downto 0);
+		
 			-- clocks
 			VDP_PClk:			in STD_LOGIC -- Pixel clock (25 MHz)
 		);
@@ -173,7 +181,16 @@ architecture Behavioral of MDOnAChip is
 	component VDP
 		port (
 			VDP_MainClk:		in STD_LOGIC;
+			VDP_50MHzClk:		in STD_LOGIC;
 			VDP_PixelClk:		in STD_LOGIC;
+
+			-- VGA interface
+			ColourOut_R:		out STD_LOGIC_VECTOR(3 downto 0);
+			ColourOut_G:		out STD_LOGIC_VECTOR(3 downto 0);
+			ColourOut_B:		out STD_LOGIC_VECTOR(3 downto 0);
+			
+			ColourOut_HSync: 	out STD_LOGIC;
+			ColourOut_VSync: 	out STD_LOGIC;
 		
 			CPUBus_Clk:			in STD_LOGIC;
 			CPU_Addr:			in STD_LOGIC_VECTOR(23 downto 0);
@@ -261,27 +278,34 @@ begin
 	MegaDriveClkPLL: MDPLL port map(inclk0 => CLK_24, c0 => MD_MasterClk);
 	MegaDriveClkGen: MDClockGen port map(MD_MainClk => MD_MasterClk, MD_CPUClk => CPU_CLK_Real, MD_CPUClkSlow => CPU_CLK_Slow);
 	
-	VGAOutputter: VGAOutput port map(ColourOut_R => VGAOut_R, ColourOut_G => VGAOut_G, ColourOut_B => VGAOut_B,
-												ColourOut_HSync => VGA_HSync, ColourOut_VSync => VGA_VSync,
-												VDP_PClk => VGA_PixelClock);
+--	VGAOutputter: VGAOutput port map(ColourOut_R => VGAOut_R, ColourOut_G => VGAOut_G, ColourOut_B => VGAOut_B,
+--												ColourOut_HSync => Vid_HSync, ColourOut_VSync => Vid_VSync,
+--												VDP_PClk => VGA_PixelClock, PixelInput => VDP_ColourBus);
 
 	CPU: TG68 port map(clk => CPU_CLK, clkena_in => CPU_ClkEna_In, reset => CPU_Reset,
 							 data_in => CPU_Data_in, data_out => CPU_Data_Out, rw => CPU_RW, dtack => CPU_DTACK,
 							 addr => CPU_Addr, as => CPU_AS, uds => CPU_UDS, lds => CPU_LDS,
 							 IPL => CPU_IPL, drive_data => CPU_Drive_data);
 	
-	MD_VDP: VDP port map(VDP_MainClk => MD_MasterClk, VDP_PixelClk => VGA_PixelClock,
+	MD_VDP: VDP port map(VDP_MainClk => MD_MasterClk, VDP_PixelClk => VGA_PixelClock, VDP_50MHzClk => CLK_50,
+
 								CPUBus_Clk => CPU_CLK, CPU_Addr => CPU_Addr(23 downto 0),
 								CPU_DataIn => CPU_Data_in, CPU_DataOut => CPU_Data_Out,
 								CPU_RW => CPU_RW, CPU_AS => CPU_AS, CPU_DTACK => CPU_VDP_DTACK, CPU_IPL => CPU_IPL,
 								
+								ColourOut_R => VGAOut_R, ColourOut_G => VGAOut_G, ColourOut_B => VGAOut_B,
+								ColourOut_HSync => Vid_HSync, ColourOut_VSync => Vid_VSync,
+												
 								Mem_Data => VDP_Mem_Data, Mem_Addr => VDP_Mem_Addr, Mem_AS => VDP_Mem_AS, Mem_DTACK => VDP_Mem_DTACK,
 								Mem_RW => VDP_Mem_RW);
 
-	TMSSROM: MD_TestPrgROM port map(address => CPU_Addr(9 downto 1), q => CPU_Data_in, clock => CPU_CLK);
+	TMSSROM: MD_TestPrgROM port map(address => CPU_Addr(9 downto 1), q => ROM_Data, clock => CPU_CLK);
 
 	HexDriver: SevenSegDriver port map(InputHex => HexDisplayVal, HEX_0 => HEX_0, HEX_1 => HEX_1, HEX_2 => HEX_2,
 												  HEX_3 => HEX_3);
+	
+	VGA_HSync <= Vid_HSync;
+	VGA_VSync <= Vid_VSync;
 	
 	LED_Red(0) <= CPU_CLK;
 	
@@ -354,6 +378,7 @@ begin
 				CPU_DTACK <= CPU_VDP_DTACK;
 			elsif(CPU_Addr(23 downto 16) < "00000100") then
 				CPU_DTACK <= '0';
+				CPU_Data_In <= ROM_Data;
 			end if;	
 		end if;
 	end process;

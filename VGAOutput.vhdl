@@ -12,6 +12,9 @@ entity VGAOutput is
 		ColourOut_HSync: 	out STD_LOGIC;
 		ColourOut_VSync: 	out STD_LOGIC;
 		
+		-- RGB444 pixel input
+		PixelInput:			in STD_LOGIC_VECTOR(11 downto 0);
+		
 		-- clocks
 		VDP_PClk:			in STD_LOGIC -- Pixel clock (25 MHz)
 	);
@@ -31,9 +34,13 @@ begin
 		
 			-- active display
 			if((pixelCount < 640) AND (lineCount < 480)) then
-				colourOut_R <= pixelCount(5 downto 2);
-				colourOut_G <= lineCount(5 downto 2);
-				colourOut_B <= pixelCount(9 downto 6);
+				colourOut_R <= pixelCount(5 downto 2) OR PixelInput(11 downto 8);
+				colourOut_G <= lineCount(5 downto 2) OR PixelInput(7 downto 4);
+				colourOut_B <= pixelCount(9 downto 6) OR PixelInput(3 downto 0);
+				
+				--colourOut_R <= PixelInput(11 downto 8);
+				--colourOut_G <= PixelInput(7 downto 4);
+				--colourOut_B <= PixelInput(3 downto 0);
 			end if;
 			
 			pixelCount <= pixelCount + '1';
