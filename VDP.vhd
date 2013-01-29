@@ -291,13 +291,21 @@ begin
 		end if;
 	end process;
 	
+	-- Memory writes/reads for 68k interface
+	process(CmdWrdDone)
+	begin
+		if(CmdWrdDone = '1') then
+	
+		end if;
+	end process;
+	
 	-- Actual video generation! Wow!
 	process(VDP_50MHzClk)
 	begin
 		if(falling_edge(VDP_50MHzClk)) then
 			scanBuf_WAddr <= pixelCount;
 			--scanBuf_In <= pixelCount(7 downto 4) & "0" & lineCount(7 downto 4) & "00" & "00000";
-			scanBuf_In <= "00000" & lineCount(3 downto 0) & "00" & "00000";
+			scanBuf_In <= pixelCount(0) & "0000" & lineCount(3 downto 0) & "00" & "00000";
 			scanBuf_WEN <= '1';
 		end if;
 	end process;
@@ -308,8 +316,13 @@ begin
 		if falling_edge(VDP_PixelClk) then
 		
 			-- active display
-			if((VGA_pixelCount < 640) AND (VGA_lineCount < 480)) then
-				scanBuf_RAddr <= pixelCount;
+			if((VGA_pixelCount < 640) AND (VGA_lineCount < 480)) then				
+				--if(VGA_pixelCount(0) = '1') then
+				--	scanBuf_RAddr <= pixelCount + '1';				
+				--else
+					scanBuf_RAddr <= pixelCount;				
+				--end if;
+				
 				colourOut_R <= ScanBuf_Out(15 downto 12);
 				colourOut_G <= ScanBuf_Out(10 downto 7);
 				colourOut_B <= ScanBuf_Out(4 downto 1);
@@ -341,6 +354,7 @@ begin
 			-- start of back porch
 			elsif(VGA_pixelCount = 752) then
 				ColourOut_HSync <= '1';		
+				scanBuf_RAddr <= "000000000";
 			-- end of back porch
 			elsif(VGA_pixelCount = 800) then
 				VGA_pixelCount <= "0000000000";
