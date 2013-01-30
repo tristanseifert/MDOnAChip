@@ -64,6 +64,9 @@ architecture Behavioral of VDP is
 	
 	signal StatusReg: 	STD_LOGIC_VECTOR(15 downto 0);
 	
+	signal WriteData:		STD_LOGIC_VECTOR(15 downto 0);
+	signal ReadData:		STD_LOGIC_VECTOR(15 downto 0);
+	
 -------------------------------------------------------------------------------
 -- Scanline doubling
 -------------------------------------------------------------------------------
@@ -255,22 +258,30 @@ begin
 		if(CPU_Addr(23 downto 16) = "11000000") then
 			-- Control port access
 			if(CPU_Addr(4 downto 2) = "001") then
-				if(CPU_RW = '0') then
-				
+				if(CPU_RW = '0') then				
+					if(CPU_Addr(1) = '1') then
+						-- Write low word of command word, signal it's done.
+						if(CPU_DataIn(15 downto 12) = "1000" OR CPU_DataIn(15 downto 12) = "1001") then
+							registers(CONV_INTEGER(CPU_DataIn(12 downto 8))) <= CPU_DataIn(7 downto 0); -- Process register write
+						else
+							CmdWrd(15 downto 0) <= CPU_DataIn;
+							CmdWrdDone <= '0';
+						end if;
+					else
+						-- Write high word of command word
+						CmdWrd(31 downto 16) <= CPU_DataIn;		
+						CmdWrdDone <= '1';		
+					end if;				
 				-- Reading control register -> status reg
 				else
 					CPU_DataOut <= StatusReg;
 				end if;
 			-- Data port access
-			elsif(CPU_Addr(4 downto 2) = "000") then				
-				if(CPU_Addr(1) = '1') then
-					-- Write low word of command word, signal it's done.
-					CmdWrd(15 downto 0) <= CPU_DataIn;
-					CmdWrdDone <= '0';
+			elsif(CPU_Addr(4 downto 2) = "000") then
+				if(CPU_RW = '0') then				
+					WriteData <= CPU_DataIn;
 				else
-					-- Write high word of command word
-					CmdWrd(31 downto 16) <= CPU_DataIn;		
-					CmdWrdDone <= '1';		
+					CPU_DataOut <= ReadData;
 				end if;
 			-- H/V counter access
 			elsif(CPU_Addr(3) = '1') then
