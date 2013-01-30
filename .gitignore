@@ -1,3 +1,4 @@
 output_files/
 greybox_tmp/
 db/
+incremental_db/
