@@ -106,6 +106,10 @@ architecture Behavioral of VDP is
 -------------------------------------------------------------------------------
 -- Registers
 -------------------------------------------------------------------------------
+	signal REG_SET_REQ: 	STD_LOGIC := '0'; -- Set to 1 when register is requested to be written
+	signal REG_SET_ACK: 	STD_LOGIC := '0'; -- Set to 0 when register is written
+	signal REG_LATCH:		STD_LOGIC_VECTOR(15 downto 0);
+
 	type reg_t is array(0 to 31) of std_logic_vector(7 downto 0);
 	signal registers:		reg_t;
 	
@@ -251,18 +255,41 @@ begin
 													 wren => ScanBuf_WEN, 
 													 rdClock => VDP_PixelClk, wrClock => VDP_50MHzClk);
 	
+	-- VDP state machine
+	process(VDP_MainClk)
+	begin			
+		if(rising_edge(VDP_MainClk)) then
+			-- Keep ack signals reset when requests are
+			if(REG_SET_REQ = '0') then
+				REG_SET_ACK <= '0';
+			end if;
+		
+			if(REG_SET_REQ = '1' AND REG_SET_ACK = '0' AND IN_DMA = '0') then -- if not in a DMA and register write req'd but not ack'd
+				registers(CONV_INTEGER(REG_LATCH(12 downto 8))) <= REG_LATCH(7 downto 0); -- Process register write
+				REG_SET_ACK <= '1'; -- ack reg write
+			end if;			
+		end if;
+	
+	end process;
+	
 	-- Once the address is valid, do fun decode-y shenanigans
 	process(CPU_AS)
 	begin
 		-- First of all, check if it's even a write to VDP address space
 		if(CPU_Addr(23 downto 16) = "11000000") then
+			REG_SET_REQ <= '0'; -- Reset register write request.
+								
 			-- Control port access
 			if(CPU_Addr(4 downto 2) = "001") then
 				if(CPU_RW = '0') then				
 					if(CPU_Addr(1) = '1') then
 						-- Write low word of command word, signal it's done.
-						if(CPU_DataIn(15 downto 12) = "1000" OR CPU_DataIn(15 downto 12) = "1001") then
-							registers(CONV_INTEGER(CPU_DataIn(12 downto 8))) <= CPU_DataIn(7 downto 0); -- Process register write
+						if(CPU_DataIn(15 downto 13) = "100") then
+							REG_LATCH <= CPU_DataIn;
+							
+							if(REG_SET_ACK = '0') then
+								REG_SET_REQ <= '1';
+							end if;
 						else
 							CmdWrd(15 downto 0) <= CPU_DataIn;
 							CmdWrdDone <= '0';
