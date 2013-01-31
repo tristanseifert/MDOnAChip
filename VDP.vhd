@@ -32,7 +32,9 @@ entity VDP is
 		Mem_Data:			inout STD_LOGIC_VECTOR(15 downto 0);
 		Mem_RW:				in STD_LOGIC;
 		Mem_AS:				in STD_LOGIC;
-		Mem_DTACK:			out STD_LOGIC
+		Mem_DTACK:			out STD_LOGIC;
+		
+		VDP_State:			out STD_LOGIC_VECTOR(3 downto 0)
 	);
 end VDP;
 
@@ -61,11 +63,18 @@ architecture Behavioral of VDP is
 	
 	signal CmdWrd: 		STD_LOGIC_VECTOR(31 downto 0);
 	signal CmdWrdDone:	STD_LOGIC := '1';
+	signal Mem_WData:		STD_LOGIC_VECTOR(15 downto 0);
+	signal Mem_RData:		STD_LOGIC_VECTOR(15 downto 0);
+	signal Mem_OpReq:		STD_LOGIC := '0';
+	signal Mem_OpDone:	STD_LOGIC := '0';
 	
 	signal StatusReg: 	STD_LOGIC_VECTOR(15 downto 0);
 	
 	signal WriteData:		STD_LOGIC_VECTOR(15 downto 0);
 	signal ReadData:		STD_LOGIC_VECTOR(15 downto 0);
+	
+	signal MemOp_Addr:	STD_LOGIC_VECTOR(15 downto 0);
+	signal MemOp_Mode:	STD_LOGIC_VECTOR(5 downto 0);
 	
 -------------------------------------------------------------------------------
 -- Scanline doubling
@@ -103,6 +112,7 @@ architecture Behavioral of VDP is
 	signal DMA_FILL:		STD_LOGIC; -- Set to 1 during VRAM fill DMA
 	signal DMA_COPY:		STD_LOGIC; -- Set to 1 during VRAM copy DMA
 	signal DMA_68K:		STD_LOGIC; -- Set to 1 during VRAM <-> 68k DMA
+	
 -------------------------------------------------------------------------------
 -- Registers
 -------------------------------------------------------------------------------
@@ -263,11 +273,29 @@ begin
 			if(REG_SET_REQ = '0') then
 				REG_SET_ACK <= '0';
 			end if;
+			
+			if(MEM_OPReq = '0') then
+				MEM_OpDone <= '0';
+			end if;
 		
 			if(REG_SET_REQ = '1' AND REG_SET_ACK = '0' AND IN_DMA = '0') then -- if not in a DMA and register write req'd but not ack'd
 				registers(CONV_INTEGER(REG_LATCH(12 downto 8))) <= REG_LATCH(7 downto 0); -- Process register write
 				REG_SET_ACK <= '1'; -- ack reg write
-			end if;			
+			end if;		
+		
+			if(Mem_OpReq = '1' AND Mem_OpDone = '0' AND IN_DMA = '0') then -- if not in DMA, mem requested and not ack'd
+				case MemOp_Mode is
+					when "000011" =>
+						CRAM_AIn <= MemOp_Addr(9 downto 1);
+						CRAM_DIn <= WriteData(11 downto 9) & WriteData(7 downto 5) & WriteData(3 downto 1);
+						CRAM_WE <= '1';
+					
+					when others =>
+						null;
+				end case;
+				
+				Mem_OpDone <= '1'; -- acknowledge mem op
+			end if;
 		end if;
 	
 	end process;
@@ -278,25 +306,30 @@ begin
 		-- First of all, check if it's even a write to VDP address space
 		if(CPU_Addr(23 downto 16) = "11000000") then
 			REG_SET_REQ <= '0'; -- Reset register write request.
+			CmdWrdDone <= '0'; -- Reset command word write request.
+			Mem_OpReq <= '0'; -- reset memory operation request
+			VDP_State(0) <= '1';		
+			VDP_State(1) <= '0';	
 								
 			-- Control port access
 			if(CPU_Addr(4 downto 2) = "001") then
-				if(CPU_RW = '0') then				
-					if(CPU_Addr(1) = '1') then
+				if(CPU_RW = '0') then	
+					if(CPU_Addr(1) = '0') then
 						-- Write low word of command word, signal it's done.
 						if(CPU_DataIn(15 downto 13) = "100") then
-							REG_LATCH <= CPU_DataIn;
+							REG_LATCH <= CPU_DataIn;		
+							VDP_State(1) <= '1';	
 							
 							if(REG_SET_ACK = '0') then
 								REG_SET_REQ <= '1';
 							end if;
 						else
-							CmdWrd(15 downto 0) <= CPU_DataIn;
+							CmdWrd(31 downto 16) <= CPU_DataIn;	
 							CmdWrdDone <= '0';
 						end if;
 					else
 						-- Write high word of command word
-						CmdWrd(31 downto 16) <= CPU_DataIn;		
+						CmdWrd(15 downto 0) <= CPU_DataIn;	
 						CmdWrdDone <= '1';		
 					end if;				
 				-- Reading control register -> status reg
@@ -307,6 +340,10 @@ begin
 			elsif(CPU_Addr(4 downto 2) = "000") then
 				if(CPU_RW = '0') then				
 					WriteData <= CPU_DataIn;
+					
+					if(Mem_OpReq = '0') then
+						Mem_OPReq <= '1';
+					end if;
 				else
 					CPU_DataOut <= ReadData;
 				end if;
@@ -326,14 +363,19 @@ begin
 			
 			-- Generate /DTAK for CPU.
 			CPU_DTACK <= '0';
+		else
+			VDP_State(0) <= '0';
 		end if;
+		
+		--VDP_State(3) <= CmdWrdDone;
 	end process;
 	
 	-- Memory writes/reads for 68k interface
 	process(CmdWrdDone)
 	begin
 		if(CmdWrdDone = '1') then
-	
+			MemOp_Addr <= CmdWrd(1) & CmdWrd(0) & CmdWrd(29 downto 16);
+			MemOp_Mode <= CmdWrd(7 downto 4) & CmdWrd(31 downto 30);
 		end if;
 	end process;
 	
@@ -343,7 +385,9 @@ begin
 		if(falling_edge(VDP_50MHzClk)) then
 			scanBuf_WAddr <= pixelCount;
 			--scanBuf_In <= pixelCount(7 downto 4) & "0" & lineCount(7 downto 4) & "00" & "00000";
-			scanBuf_In <= pixelCount(0) & "0000" & lineCount(3 downto 0) & "00" & "00000";
+			--scanBuf_In <= pixelCount(0) & "0000" & lineCount(3 downto 0) & "00" & "00000";
+			CRAM_AOut <= "000000000";
+			scanBuf_In <= CRAM_DOut(8 downto 6) & "00" & CRAM_DOut(5 downto 3) & "000" & CRAM_DOut(2 downto 0) & "00";
 			scanBuf_WEN <= '1';
 		end if;
 	end process;

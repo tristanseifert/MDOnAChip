@@ -113,6 +113,7 @@ architecture Behavioral of MDOnAChip is
 	
 	signal CPU_RAM_CS:		STD_LOGIC:='1';
 	
+	signal CPU_REAL_DTACK:	STD_LOGIC;
 	signal CPU_VDP_DTACK: 	STD_LOGIC;
 	signal CPU_RAM_DTACK: 	STD_LOGIC;
 	
@@ -205,7 +206,9 @@ architecture Behavioral of MDOnAChip is
 			Mem_Data:			inout STD_LOGIC_VECTOR(15 downto 0);
 			Mem_RW:				in STD_LOGIC;
 			Mem_AS:				in STD_LOGIC;
-			Mem_DTACK:			out STD_LOGIC
+			Mem_DTACK:			out STD_LOGIC;
+		
+			VDP_State:			out STD_LOGIC_VECTOR(3 downto 0)
 		);
 	end component VDP;
 	
@@ -283,7 +286,7 @@ begin
 --												VDP_PClk => VGA_PixelClock, PixelInput => VDP_ColourBus);
 
 	CPU: TG68 port map(clk => CPU_CLK, clkena_in => CPU_ClkEna_In, reset => CPU_Reset,
-							 data_in => CPU_Data_in, data_out => CPU_Data_Out, rw => CPU_RW, dtack => CPU_DTACK,
+							 data_in => CPU_Data_in, data_out => CPU_Data_Out, rw => CPU_RW, dtack => CPU_REAL_DTACK,
 							 addr => CPU_Addr, as => CPU_AS, uds => CPU_UDS, lds => CPU_LDS,
 							 IPL => CPU_IPL, drive_data => CPU_Drive_data);
 	
@@ -297,7 +300,9 @@ begin
 								ColourOut_HSync => Vid_HSync, ColourOut_VSync => Vid_VSync,
 												
 								Mem_Data => VDP_Mem_Data, Mem_Addr => VDP_Mem_Addr, Mem_AS => VDP_Mem_AS, Mem_DTACK => VDP_Mem_DTACK,
-								Mem_RW => VDP_Mem_RW);
+								Mem_RW => VDP_Mem_RW,
+								
+								VDP_State => LED_Red(9 downto 6));
 
 	TMSSROM: MD_TestPrgROM port map(address => CPU_Addr(9 downto 1), q => ROM_Data, clock => CPU_CLK);
 
@@ -320,7 +325,7 @@ begin
 	LED_Green(7) <= CPU_IPL(2);
 	
 	CPU_Reset <= SW_Push(3);
-	
+
 	process(SW_Toggle(0))
 	begin
 		if(SW_Toggle(0) = '1') then
@@ -331,6 +336,15 @@ begin
 			end if;
 		else
 			CPU_CLK <= SW_Push(0);		
+		end if;
+	end process;
+	
+	process(SW_Toggle(3))
+	begin
+		if(SW_Toggle(3) = '1') then
+			CPU_REAL_DTACK <= SW_Push(2);
+		else
+			CPU_REAL_DTACK <= CPU_DTACK;
 		end if;
 	end process;
 	
